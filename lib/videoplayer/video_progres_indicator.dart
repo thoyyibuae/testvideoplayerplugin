@@ -2,19 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 /// Displays the play/buffering status of the video controlled by [controller].
-///
-/// If [allowScrubbing] is true, this widget will detect taps and drags and
-/// seek the video accordingly.
-///
+
+
+
 /// [padding] allows to specify some extra padding around the progress indicator
 /// that will also detect the gestures.
 class CustomVideoProgressIndicator extends StatefulWidget {
-  /// Construct an instance that displays the play/buffering status of the video
-  /// controlled by [controller].
-  ///
-  /// Defaults will be used for everything except [controller] if they're not
-  /// provided. [allowScrubbing] defaults to false, and [padding] will default
-  /// to `top: 5.0`.
+
   CustomVideoProgressIndicator(
       this.controller, {
         VideoProgressColors colors,
@@ -24,19 +18,16 @@ class CustomVideoProgressIndicator extends StatefulWidget {
       }) : colors = colors ?? VideoProgressColors();
 
   /// The [VideoPlayerController] that actually associates a video with this
-  /// widget.
   final VideoPlayerController controller;
 
   /// The default colors used throughout the indicator.
-  ///
-  /// See [VideoProgressColors] for default values.
+
   final VideoProgressColors colors;
 
   final List<Duration> timestamps;
 
   /// When true, the widget will detect touch input and try to seek the video
   /// accordingly. The widget ignores such input when false.
-  ///
   /// Defaults to false.
   final bool allowScrubbing;
 

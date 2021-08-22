@@ -1,11 +1,11 @@
 
+import 'package:firebase_user_login/screensetprovider/screensetprovider.dart';
 import 'package:firebase_user_login/themeprovider/themeprovider.dart';
-import 'package:firebase_user_login/user_screen/userdetailscreen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 
-import 'loginSelection.dart';
+import 'package:firebase_user_login/loginselection/loginSelection.dart';
 
 void main()=> runApp(MyApp());
 
@@ -15,13 +15,14 @@ class MyApp extends StatelessWidget{
 
 
     //Provider to set the main.dart
-    return ChangeNotifierProvider<ThemeModel>(
-
-
-        create: (_) => ThemeModel(ThemeData.dark()),
-      // builder: (_)=>ThemeModel(ThemeData.dark()),
-
-    child: AppWithTheme()
+    return MultiProvider( providers: [
+      ChangeNotifierProvider<ScreenSetProvider>(
+        create: (_) => ScreenSetProvider(),
+      ),//using screen exit
+      ChangeNotifierProvider<ThemeModel >(
+        create: (_) => ThemeModel(ThemeData.dark()),),//using theme change
+    ],
+      child: AppWithTheme(),
     );
   }
 }

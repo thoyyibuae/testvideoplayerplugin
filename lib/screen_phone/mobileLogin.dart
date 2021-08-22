@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_user_login/app_home/home.dart';
+import 'package:firebase_user_login/screensetprovider/screensetprovider.dart';
 import 'package:firebase_user_login/themeprovider/themeprovider.dart';
 import 'package:firebase_user_login/user_screen/userdetailscreen.dart';
 import 'package:flutter/material.dart';
@@ -31,34 +32,7 @@ class _LoginScreenPhoneState extends State<LoginScreenPhone> {
     await SmsAutoFill().listenForCode;
   }
 
- //exit app
-  Future<bool> _onWillPop() {
-    return showDialog(
-      context: context,
-      builder: (context) => new AlertDialog(
-        title: new Text('Confirm Exit?',
-            style: new TextStyle(color: Colors.black, fontSize: 20.0)),
-        content: new Text(
-            'Are you sure you want to exit the app? Tap \'Yes\' to exit \'No\' to cancel.'),
-        actions: <Widget>[
-          new FlatButton(
-            onPressed: () {
-              // this line exits the app.
-              SystemChannels.platform
-                  .invokeMethod('SystemNavigator.pop');
-            },
-            child:
-            new Text('Yes', style: new TextStyle(fontSize: 18.0)),
-          ),
-          new FlatButton(
-            onPressed: () => Navigator.pop(context), // this line dismisses the dialog
-            child: new Text('No', style: new TextStyle(fontSize: 18.0)),
-          )
-        ],
-      ),
-    ) ??
-        false;
-  }
+
 
 
   //customized widget
@@ -216,11 +190,13 @@ class _LoginScreenPhoneState extends State<LoginScreenPhone> {
   //build method called
   @override
   Widget build(BuildContext context) {
+    // screen to want the theme provider call
     ThemeModel themeModel = Provider.of<ThemeModel>(context);
 
-    return WillPopScope(
-
-          onWillPop: () async => _onWillPop(),
+    // screen to want the screenset provider call
+    final screenexit = Provider.of<ScreenSetProvider>(context);
+    return new WillPopScope(
+      onWillPop: () async => screenexit.screenExit(context),
       child: Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.white,

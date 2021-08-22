@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_user_login/screensetprovider/screensetprovider.dart';
 import 'package:firebase_user_login/themeprovider/themeprovider.dart';
 import 'package:firebase_user_login/userSettings/settingsuser.dart';
 import 'package:firebase_user_login/videoplayer/custom_controls_widget.dart';
@@ -59,7 +60,7 @@ void initState() {
   disableScreenShot();
 
   controller = VideoPlayerController.asset(
-    'assets/a.mp4',
+    'assets/video1.mp4',
   );
 
   //controller listener
@@ -170,10 +171,13 @@ Widget build(BuildContext context) {
 
   //provider call
 
+  // screen to want the theme provider call
   ThemeModel themeModel = Provider.of<ThemeModel>(context);
-  return WillPopScope(
 
-        onWillPop: () async => _onWillPop(),
+  // screen to want the screenset provider call
+  final screenexit = Provider.of<ScreenSetProvider>(context);
+  return new WillPopScope(
+    onWillPop: () async => screenexit.screenExit(context),
     child: Scaffold(
         key: _scaffoldKey,
         drawer: Container(
@@ -465,7 +469,7 @@ Widget build(BuildContext context) {
                   children: [
                     FlatButton.icon(
                       onPressed: () {
-                        _getValuesAndPlay("assets/a.mp4");
+                        _getValuesAndPlay("assets/video1.mp4");
                       },
                       icon: Icon(
                         Icons.skip_previous,
@@ -491,7 +495,7 @@ Widget build(BuildContext context) {
                     ),
                     FlatButton.icon(
                       onPressed: () {
-                        _getValuesAndPlay("assets/b.mp4");
+                        _getValuesAndPlay("assets/video2.mp4");
                       },
                       icon: Icon(
                         Icons.skip_next,

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:firebase_user_login/app_home/home.dart';
+import 'package:firebase_user_login/screensetprovider/screensetprovider.dart';
 import 'package:firebase_user_login/themeprovider/themeprovider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -215,10 +216,13 @@ class _UserDetailsState extends State<UserDetails> {
   //build widget
   @override
   Widget build(BuildContext context) {
+    // screen to want the theme provider call
     ThemeModel themeModel = Provider.of<ThemeModel>(context);
 
-    return WillPopScope(
-      onWillPop: () async => _onWillPop(),
+    // screen to want the screenset provider call
+    final screenexit = Provider.of<ScreenSetProvider>(context);
+    return new WillPopScope(
+      onWillPop: () async => screenexit.screenExit(context),
       child: Scaffold(
         appBar: null,
         body: ListView(
